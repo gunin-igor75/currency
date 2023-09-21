@@ -8,6 +8,6 @@ data class CoinInfo(
 
     @SerializedName("Name")
     @Expose
-    val name: String? = null,
+    val name: String? = null
 
 )

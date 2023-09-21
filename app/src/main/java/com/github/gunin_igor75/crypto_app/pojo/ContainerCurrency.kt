@@ -8,5 +8,5 @@ data class ContainerCurrency(
 
     @SerializedName("RAW")
     @Expose
-    val containerCurrencyJson: JsonObject? = null
+    val containerCurrencyJson: JsonObject?
 )
