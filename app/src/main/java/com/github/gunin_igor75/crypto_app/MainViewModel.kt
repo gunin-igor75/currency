@@ -3,6 +3,7 @@ package com.github.gunin_igor75.crypto_app
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
+import androidx.lifecycle.LiveData
 import com.github.gunin_igor75.crypto_app.api.ApiFactory
 import com.github.gunin_igor75.crypto_app.database.AppDatabase
 import com.github.gunin_igor75.crypto_app.pojo.ContainerCurrency
@@ -22,7 +23,16 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
 
     val currencies = appDao.getAllCurrency()
 
-    fun loadData() {
+
+    init {
+        loadData()
+    }
+
+    fun loadDetailsCoin(fSym: String): LiveData<InfoCurrency> {
+        return appDao.getCurrencyByName(fSym)
+    }
+
+    private fun loadData() {
         val disposable = ApiFactory.apiService.getDataContainer()
             .map { it.data?.map { datum -> datum.coinInfo?.name }?.joinToString(",") }
             .flatMap { ApiFactory.apiService.getInfoCurrency(fSymS = it) }
@@ -32,11 +42,8 @@ class MainViewModel(application: Application) : AndroidViewModel(application) {
             .retry()
             .subscribeOn(Schedulers.io())
             .subscribe(
-                {
-                    appDao.saveCurrencies(it)
-                }, {
-                    Log.d(TAG, it.message.toString())
-                }
+                { appDao.saveCurrencies(it) },
+                { Log.d(TAG, it.message.toString()) }
             )
         compositeDisposable.add(disposable)
     }

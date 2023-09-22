@@ -10,6 +10,5 @@ fun converterTime(timeInt: Int): String {
     val pattern = "HH:mm:ss"
     val formatter = SimpleDateFormat(pattern, Locale.getDefault())
     formatter.timeZone = TimeZone.getDefault()
-    val time = formatter.format(date)
-    return "Время последнего обновления $time"
+    return formatter.format(date)
 }

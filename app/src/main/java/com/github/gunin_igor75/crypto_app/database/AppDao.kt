@@ -10,7 +10,7 @@ import com.github.gunin_igor75.crypto_app.pojo.InfoCurrency
 @Dao
 interface AppDao {
 
-    @Query("SELECT * FROM currency ORDER BY lastUpdate")
+    @Query("SELECT * FROM currency ORDER BY lastUpdate DESC")
     fun getAllCurrency(): LiveData<List<InfoCurrency>>
 
     @Query("SELECT * FROM currency WHERE fromSymbol =:fSym LIMIT 1")

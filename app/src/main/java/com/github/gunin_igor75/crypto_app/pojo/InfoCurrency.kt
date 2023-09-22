@@ -173,6 +173,6 @@ data class InfoCurrency(
     }
 
     fun getFullPathImage(): String {
-        return imageUrl + BASE_IMAGE_URL
+        return BASE_IMAGE_URL + imageUrl
     }
 }
