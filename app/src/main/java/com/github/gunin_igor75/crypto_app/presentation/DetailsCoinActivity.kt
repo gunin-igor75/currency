@@ -1,4 +1,4 @@
-package com.github.gunin_igor75.crypto_app
+package com.github.gunin_igor75.crypto_app.presentation
 
 import android.content.Context
 import android.content.Intent
@@ -33,8 +33,8 @@ class DetailsCoinActivity : AppCompatActivity() {
             binding.textViewMin.text = it.lowDay.toString()
             binding.textViewMax.text = it.highDay.toString()
             binding.textViewLastDeal.text = it.lastMarket
-            binding.textViewLastTime.text = it.secondToDate()
-            Picasso.get().load(it.getFullPathImage()).into(binding.imageViewCoinDetails)
+            binding.textViewLastTime.text = it.lastUpdate
+            Picasso.get().load(it.imageUrl).into(binding.imageViewCoinDetails)
         }
     }
 

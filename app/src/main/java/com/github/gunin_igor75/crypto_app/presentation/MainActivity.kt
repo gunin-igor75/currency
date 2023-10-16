@@ -1,12 +1,12 @@
-package com.github.gunin_igor75.crypto_app
+package com.github.gunin_igor75.crypto_app.presentation
 
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.ViewModelProvider
-import com.github.gunin_igor75.crypto_app.adapter.CoinAdapter
 import com.github.gunin_igor75.crypto_app.databinding.ActivityMainBinding
-import com.github.gunin_igor75.crypto_app.pojo.InfoCurrency
+import com.github.gunin_igor75.crypto_app.domain.pojo.CoinInfo
+import com.github.gunin_igor75.crypto_app.presentation.adapter.CoinAdapter
 
 class MainActivity : AppCompatActivity() {
 
@@ -25,10 +25,10 @@ class MainActivity : AppCompatActivity() {
         recyclerViewCoins.adapter = adapter
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
 
-        viewModel.currencies.observe(this) { adapter.coins = it }
+        viewModel.currencies.observe(this) { adapter.submitList(it) }
 
         adapter.coinOnClickListener = object : CoinAdapter.CoinOnClickListener {
-            override fun onCoinClick(coin: InfoCurrency) {
+            override fun onCoinClick(coin: CoinInfo) {
                 val intent = DetailsCoinActivity.newIntent(
                     this@MainActivity,
                     coin.fromSymbol
