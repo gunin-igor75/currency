@@ -26,12 +26,15 @@ class CoinInfoRepositoryDbImp(application: Application) : CoinRepository {
 
     override suspend fun loadData() {
         while (true) {
-            val coins = apiService.getCoinNameList()
-            val namesString = mapper.mapCoinNameListToString(coins)
-            val json = apiService.getInfoCurrency(namesString)
-            val coinsInfoDto = mapper.mapJsonToList(json)
-            val coinsInfo = coinsInfoDto.map { mapper.mapDtoToDbModel(it) }
-            appDao.saveCurrencies(coinsInfo)
+            try {
+                val coins = apiService.getCoinNameList()
+                val namesString = mapper.mapCoinNameListToString(coins)
+                val json = apiService.getInfoCurrency(namesString)
+                val coinsInfoDto = mapper.mapJsonToList(json)
+                val coinsInfo = coinsInfoDto.map { mapper.mapDtoToDbModel(it) }
+                appDao.saveCurrencies(coinsInfo)
+            } catch (e: Exception) {
+            }
             delay(10000)
         }
     }

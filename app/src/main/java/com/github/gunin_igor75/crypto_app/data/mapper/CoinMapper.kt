@@ -1,7 +1,6 @@
 package com.github.gunin_igor75.crypto_app.data.mapper
 
 import com.github.gunin_igor75.crypto_app.data.db.CoinInfoDbModel
-import com.github.gunin_igor75.crypto_app.data.network.ApiFactory
 import com.github.gunin_igor75.crypto_app.data.network.dto.CoinInfoDto
 import com.github.gunin_igor75.crypto_app.data.network.dto.CoinInfoJsonContainerDto
 import com.github.gunin_igor75.crypto_app.data.network.dto.CoinNamesListDto
@@ -12,6 +11,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
+private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
 class CoinMapper {
 
     fun mapDtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
@@ -23,7 +23,7 @@ class CoinMapper {
             highDay = dto.highDay,
             lowDay = dto.lowDay,
             lastMarket = dto.lastMarket,
-            imageUrl = dto.imageUrl
+            imageUrl = BASE_URL + dto.imageUrl
         )
     }
 
@@ -36,7 +36,7 @@ class CoinMapper {
             highDay = dbModel.highDay,
             lowDay = dbModel.lowDay,
             lastMarket = dbModel.lastMarket,
-            imageUrl = ApiFactory.BASE_IMAGE_URL + dbModel.imageUrl
+            imageUrl = dbModel.imageUrl
         )
     }
 

@@ -3,10 +3,13 @@ package com.github.gunin_igor75.crypto_app.presentation
 
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
+import androidx.fragment.app.FragmentContainerView
 import androidx.lifecycle.ViewModelProvider
+import com.github.gunin_igor75.crypto_app.R
 import com.github.gunin_igor75.crypto_app.databinding.ActivityMainBinding
 import com.github.gunin_igor75.crypto_app.domain.pojo.CoinInfo
 import com.github.gunin_igor75.crypto_app.presentation.adapter.CoinAdapter
+
 
 class MainActivity : AppCompatActivity() {
 
@@ -14,27 +17,47 @@ class MainActivity : AppCompatActivity() {
 
     private lateinit var binding: ActivityMainBinding
 
+    private lateinit var adapter: CoinAdapter
+
+    private var fcvCoinDetails: FragmentContainerView? = null
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         binding = ActivityMainBinding.inflate(layoutInflater)
         setContentView(binding.root)
-
-        val recyclerViewCoins = binding.recyclerViewCoins
-        val adapter = CoinAdapter(this)
-        recyclerViewCoins.adapter = adapter
+        setupRecyclerView()
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
-
         viewModel.currencies.observe(this) { adapter.submitList(it) }
+        onclickAdapter()
+    }
 
+
+    private fun setupRecyclerView() {
+        val recyclerViewCoins = binding.recyclerViewCoins
+        adapter = CoinAdapter(this)
+        recyclerViewCoins.adapter = adapter
+    }
+
+    private fun onclickAdapter() {
         adapter.coinOnClickListener = object : CoinAdapter.CoinOnClickListener {
             override fun onCoinClick(coin: CoinInfo) {
-                val intent = DetailsCoinActivity.newIntent(
-                    this@MainActivity,
-                    coin.fromSymbol
-                )
-                startActivity(intent)
+                fcvCoinDetails = binding.fcvCoinDetails
+                if (fcvCoinDetails != null) {
+                    launchFragment(CoinDetailsFragment.newInstanceCoinDetails(coin.fromSymbol))
+                } else {
+                    val intent =
+                        DetailsCoinActivity.newIntent(this@MainActivity, coin.fromSymbol)
+                    startActivity(intent)
+                }
             }
         }
+    }
+
+    private fun launchFragment(fragment: CoinDetailsFragment) {
+        supportFragmentManager.popBackStack()
+        supportFragmentManager.beginTransaction()
+            .replace(R.id.fcv_coin_details, fragment)
+            .addToBackStack(null)
+            .commit()
     }
 }
