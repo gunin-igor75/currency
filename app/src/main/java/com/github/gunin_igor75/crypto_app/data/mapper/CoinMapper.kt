@@ -11,7 +11,7 @@ import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
 
-private const val BASE_URL = "https://min-api.cryptocompare.com/data/"
+const val BASE_IMAGE_URL = "https://cryptocompare.com"
 class CoinMapper {
 
     fun mapDtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
@@ -23,7 +23,7 @@ class CoinMapper {
             highDay = dto.highDay,
             lowDay = dto.lowDay,
             lastMarket = dto.lastMarket,
-            imageUrl = BASE_URL + dto.imageUrl
+            imageUrl = BASE_IMAGE_URL + dto.imageUrl
         )
     }
 

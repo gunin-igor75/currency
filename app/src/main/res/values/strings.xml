@@ -1,7 +1,7 @@
 <resources>
     <string name="app_name">crypto_app</string>
     <string name="coin_name">%s/ %s</string>
-    <string name="coin_update">Время последнего обновления :</string>
+    <string name="coin_update">Время последнего обновления :%s</string>
     <string name="track">/</string>
     <string name="price">Цена:</string>
     <string name="min_day">Минимум за день:</string>

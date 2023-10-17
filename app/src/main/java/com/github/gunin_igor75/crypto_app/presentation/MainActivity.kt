@@ -34,6 +34,7 @@ class MainActivity : AppCompatActivity() {
 
     private fun setupRecyclerView() {
         val recyclerViewCoins = binding.recyclerViewCoins
+        recyclerViewCoins.animation = null
         adapter = CoinAdapter(this)
         recyclerViewCoins.adapter = adapter
     }

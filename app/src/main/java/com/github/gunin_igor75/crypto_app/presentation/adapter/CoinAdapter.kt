@@ -10,7 +10,7 @@ import com.github.gunin_igor75.crypto_app.domain.pojo.CoinInfo
 import com.squareup.picasso.Picasso
 
 class CoinAdapter(private val context: Context) :
-    ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback()) {
+    ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback) {
 
     var coinOnClickListener: CoinOnClickListener? = null
 
@@ -27,13 +27,13 @@ class CoinAdapter(private val context: Context) :
         val coin = getItem(position)
         val templateName = context.resources.getString(R.string.coin_name)
         val templateUpdate = context.resources.getString(R.string.coin_update)
-        with(holder) {
-            binding.textViewCoinName.text = String.format(templateName, coin.fromSymbol, coin.toSymbol)
-            binding.textViewCoinUpdateTime.text = String.format(templateUpdate, coin.lastUpdate)
-            binding.textViewCoinCost.text = coin.price.toString()
-            Picasso.get().load(coin.imageUrl).into(binding.imageViewCoin)
+        with(holder.binding) {
+            textViewCoinName.text = String.format(templateName, coin.fromSymbol, coin.toSymbol)
+            textViewCoinUpdateTime.text = String.format(templateUpdate, coin.lastUpdate)
+            textViewCoinCost.text = coin.price.toString()
+            Picasso.get().load(coin.imageUrl).into(imageViewCoin)
 
-            itemView.setOnClickListener {
+            root.setOnClickListener {
                 coinOnClickListener?.onCoinClick(coin)
             }
         }
