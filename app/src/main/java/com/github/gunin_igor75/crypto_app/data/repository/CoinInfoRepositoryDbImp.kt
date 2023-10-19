@@ -10,7 +10,7 @@ import com.github.gunin_igor75.crypto_app.domain.pojo.CoinInfo
 import com.github.gunin_igor75.crypto_app.domain.repository.CoinRepository
 import kotlinx.coroutines.delay
 
-class CoinInfoRepositoryDbImp(application: Application) : CoinRepository {
+class CoinInfoRepositoryDbImp (application: Application) : CoinRepository {
 
     private val appDao = AppDatabase.getInstance(application).appDao()
 

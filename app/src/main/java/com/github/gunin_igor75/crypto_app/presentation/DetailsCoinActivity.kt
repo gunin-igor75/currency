@@ -19,11 +19,11 @@ class DetailsCoinActivity : AppCompatActivity() {
             return
         }
         if (savedInstanceState == null) {
-            launchMode(fSym)
+            launchFragment(fSym)
         }
     }
 
-    private fun launchMode(fSym: String) {
+    private fun launchFragment(fSym: String) {
         val fragment = CoinDetailsFragment.newInstanceCoinDetails(fSym)
         supportFragmentManager.beginTransaction()
             .replace(R.id.coin_details_container, fragment)

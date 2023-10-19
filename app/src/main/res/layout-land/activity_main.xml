@@ -11,7 +11,7 @@
         <androidx.recyclerview.widget.RecyclerView
             android:id="@+id/recyclerViewCoins"
             android:layout_width="0dp"
-            android:layout_height="0dp"
+            android:layout_height="match_parent"
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toStartOf="@+id/gl_middle"
@@ -26,18 +26,13 @@
             android:orientation="vertical"
             app:layout_constraintGuide_percent="0.5" />
 
-        <ScrollView
+        <androidx.fragment.app.FragmentContainerView
+            android:id="@+id/fcv_coin_details"
             android:layout_width="0dp"
             android:layout_height="match_parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintStart_toEndOf="@+id/gl_middle">
-
-            <androidx.fragment.app.FragmentContainerView
-                android:id="@+id/fcv_coin_details"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                tools:layout="@layout/fragment_coin_details" />
-        </ScrollView>
+            app:layout_constraintStart_toStartOf="@+id/gl_middle"
+            tools:layout="@layout/fragment_coin_details" />
 
 
     </androidx.constraintlayout.widget.ConstraintLayout>

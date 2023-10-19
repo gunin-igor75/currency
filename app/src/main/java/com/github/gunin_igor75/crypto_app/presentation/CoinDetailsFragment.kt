@@ -13,7 +13,7 @@ class CoinDetailsFragment : Fragment() {
 
     private var _binding: FragmentCoinDetailsBinding? = null
 
-    val binding
+    private val binding
         get() = _binding ?: throw RuntimeException("FragmentCoinDetailsBinding is null")
 
     private lateinit var viewModel: MainViewModel
@@ -27,7 +27,6 @@ class CoinDetailsFragment : Fragment() {
         return binding.root
     }
 
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         viewModel = ViewModelProvider(this)[MainViewModel::class.java]
@@ -35,26 +34,30 @@ class CoinDetailsFragment : Fragment() {
     }
 
     private fun observeViewModel() {
-        val args = requireArguments()
-        val fSym =  args.getString(EXTRA_SYMBOL)
-        if (fSym == null) {
-            requireActivity().finish()
-        } else {
-            viewModel.loadDetailsCoin(fSym).observe(viewLifecycleOwner) {
-                binding.textViewFSymbol.text = it.fromSymbol
-                binding.textViewToSymbol.text = it.toSymbol
-                binding.textViewPrice.text = it.price.toString()
-                binding.textViewMin.text = it.lowDay.toString()
-                binding.textViewMax.text = it.highDay.toString()
-                binding.textViewLastDeal.text = it.lastMarket
-                binding.textViewLastTime.text = it.lastUpdate
-                Picasso.get().load(it.imageUrl).into(binding.imageViewCoinDetails)
+        val fSym = getParam()
+        viewModel.loadDetailsCoin(fSym).observe(viewLifecycleOwner) {
+            with(binding) {
+                textViewFSymbol.text = it.fromSymbol
+                textViewToSymbol.text = it.toSymbol
+                textViewPrice.text = it.price.toString()
+                textViewMin.text = it.lowDay.toString()
+                textViewMax.text = it.highDay.toString()
+                textViewLastDeal.text = it.lastMarket
+                textViewLastTime.text = it.lastUpdate
+                Picasso.get().load(it.imageUrl).into(imageViewCoinDetails)
             }
         }
     }
 
+    private fun getParam(): String {
+        val args = requireArguments()
+        return args.getString(EXTRA_SYMBOL, EMPTY)
+    }
+
     companion object {
         private const val EXTRA_SYMBOL = "fSym"
+        private const val EMPTY = ""
+
         fun newInstanceCoinDetails(fSym: String): CoinDetailsFragment {
             return CoinDetailsFragment().apply {
                 arguments = Bundle().apply {

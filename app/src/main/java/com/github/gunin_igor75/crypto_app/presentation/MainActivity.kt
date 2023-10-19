@@ -42,17 +42,18 @@ class MainActivity : AppCompatActivity() {
     private fun onclickAdapter() {
         adapter.coinOnClickListener = object : CoinAdapter.CoinOnClickListener {
             override fun onCoinClick(coin: CoinInfo) {
-                fcvCoinDetails = binding.fcvCoinDetails
-                if (fcvCoinDetails != null) {
-                    launchFragment(CoinDetailsFragment.newInstanceCoinDetails(coin.fromSymbol))
-                } else {
+                if (isOnePaneMode()) {
                     val intent =
                         DetailsCoinActivity.newIntent(this@MainActivity, coin.fromSymbol)
                     startActivity(intent)
+                } else {
+                    launchFragment(CoinDetailsFragment.newInstanceCoinDetails(coin.fromSymbol))
                 }
             }
         }
     }
+
+    private fun isOnePaneMode() = binding.fcvCoinDetails == null
 
     private fun launchFragment(fragment: CoinDetailsFragment) {
         supportFragmentManager.popBackStack()
