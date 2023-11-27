@@ -10,10 +10,10 @@ import java.text.SimpleDateFormat
 import java.util.Date
 import java.util.Locale
 import java.util.TimeZone
+import javax.inject.Inject
 
-const val BASE_IMAGE_URL = "https://cryptocompare.com"
-class CoinMapper {
-
+private const val BASE_IMAGE_URL = "https://cryptocompare.com"
+class CoinMapper @Inject constructor() {
     fun mapDtoToDbModel(dto: CoinInfoDto): CoinInfoDbModel {
         return CoinInfoDbModel(
             fromSymbol = dto.fromSymbol,
@@ -67,10 +67,14 @@ class CoinMapper {
     }
 
     private fun converterTime(timeInt: Int): String {
-        val date = Date(timeInt.toLong() * 1000)
+        val date = Date(timeInt.toLong() * SECOND)
         val pattern = "HH:mm:ss"
         val formatter = SimpleDateFormat(pattern, Locale.getDefault())
         formatter.timeZone = TimeZone.getDefault()
         return formatter.format(date)
+    }
+
+    companion object {
+        private const val SECOND = 1000
     }
 }

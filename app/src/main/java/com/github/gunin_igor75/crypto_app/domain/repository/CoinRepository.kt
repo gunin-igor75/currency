@@ -9,6 +9,6 @@ interface CoinRepository {
 
     fun getCoinInfoByName(fSym: String): LiveData<CoinInfo>
 
-    suspend fun loadData()
+    fun loadData()
 
 }

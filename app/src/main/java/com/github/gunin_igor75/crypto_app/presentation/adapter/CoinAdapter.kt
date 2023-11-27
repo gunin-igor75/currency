@@ -8,9 +8,11 @@ import com.github.gunin_igor75.crypto_app.R
 import com.github.gunin_igor75.crypto_app.databinding.ItemCoinBinding
 import com.github.gunin_igor75.crypto_app.domain.pojo.CoinInfo
 import com.squareup.picasso.Picasso
+import javax.inject.Inject
 
-class CoinAdapter(private val context: Context) :
-    ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback) {
+class CoinAdapter @Inject constructor(
+    private val context: Context
+) : ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback) {
 
     var coinOnClickListener: CoinOnClickListener? = null
 
