@@ -12,8 +12,7 @@ import javax.inject.Inject
 
 class CoinAdapter @Inject constructor(
     private val context: Context
-) :
-    ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback) {
+) : ListAdapter<CoinInfo, CoinViewHolder>(CoinItemDiffCallback) {
 
     var coinOnClickListener: CoinOnClickListener? = null
 

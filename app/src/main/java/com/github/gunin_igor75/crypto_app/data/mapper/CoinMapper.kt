@@ -67,10 +67,14 @@ class CoinMapper @Inject constructor() {
     }
 
     private fun converterTime(timeInt: Int): String {
-        val date = Date(timeInt.toLong() * 1000)
+        val date = Date(timeInt.toLong() * SECOND)
         val pattern = "HH:mm:ss"
         val formatter = SimpleDateFormat(pattern, Locale.getDefault())
         formatter.timeZone = TimeZone.getDefault()
         return formatter.format(date)
+    }
+
+    companion object {
+        private const val SECOND = 1000
     }
 }
