@@ -11,7 +11,7 @@ import androidx.work.OneTimeWorkRequestBuilder
 import androidx.work.WorkerParameters
 import com.github.gunin_igor75.crypto_app.data.db.AppDao
 import com.github.gunin_igor75.crypto_app.data.mapper.CoinMapper
-import com.github.gunin_igor75.crypto_app.data.network.ApiService
+import com.github.gunin_igor75.crypto_app.data.network.retro.ApiService
 import kotlinx.coroutines.delay
 import javax.inject.Inject
 
