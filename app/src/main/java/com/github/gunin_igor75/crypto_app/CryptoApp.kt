@@ -2,7 +2,6 @@ package com.github.gunin_igor75.crypto_app
 
 import android.app.Application
 import androidx.work.Configuration
-import com.github.gunin_igor75.crypto_app.data.network.ApiService
 import com.github.gunin_igor75.crypto_app.data.workers.RefreshWorkerFactory
 import com.github.gunin_igor75.crypto_app.di.DaggerApplicationComponent
 import javax.inject.Inject
